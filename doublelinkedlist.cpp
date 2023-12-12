@@ -55,13 +55,14 @@ public:
         tail=item;
         }
     }
-    int printdouble()
+    void printdouble()
     {
         if(head == NULL)
         {
             cout << "double linked belum dibuat" << endl;
         }else 
         {
+            cout << "Jumlah Data :" << countdouble() << endl;            
         Supermarket *saiki = head;
         // saiki = head;
         while(saiki!=NULL)
@@ -118,6 +119,27 @@ public:
         tail->pssword=x[3];
         }
     }
+    int countdouble()
+    {
+        Supermarket *cur = new Supermarket();
+        if(head == NULL)
+        {
+            cout << "double link belum dibuat!!";
+        }
+        else
+        {
+      
+            cur = head;
+            int sum = 0;
+            while(cur != NULL)
+            {
+                sum++;
+                cur = cur->next;
+            }
+            return sum;
+        }
+    
+    }
     void ubahawal(string x[4])
     {         
        if(head == NULL)
@@ -130,6 +152,42 @@ public:
         head->mail=x[2];
         head->pssword=x[3];
         }
+    }
+    void addMiddle(string x[4],int nomer)
+    {  
+      if(head == NULL)
+        {
+            cout << "double linked belum dibuat" << endl;
+        }else{
+            if(nomer == 1)
+            {
+                cout << "bukan posisi tengah" << endl;
+            }else if(nomer>countdouble()){
+                cout << "posisi di luar jangkauan" << endl;
+            }else{
+                 Supermarket *cur = new Supermarket();
+                Supermarket *newnode = new Supermarket();
+                Supermarket *afternode = new Supermarket(); 
+            
+                newnode->namabarang = x[0];
+                newnode->user=x[1];
+                newnode->mail=x[2];
+                newnode->pssword=x[3];
+                cur = head;
+
+            int hitung =1;
+            while(hitung<nomer-1)
+            {
+                cur = cur->next;
+                hitung++;
+            }
+            afternode = cur->next;
+            newnode->prev = cur;
+            newnode->next = afternode;
+            cur->next = newnode;
+            afternode->prev = newnode;         
+            }
+    }
     }
 };
 
@@ -145,9 +203,11 @@ int main()
     string data2[4] = {"1","usersarimi","mie@gmail.com","12334"};
     string data3[4] = {"4","ubahakhir","ubah@gmail.com","9879"};
     string dataupdatefirst[4] = {"1","updatefirst","ubah@gmail.com","9879"};
+    string datatengah[4] = {"mid","datatengah","tengah.com","9879"};
     ada.addfirst(data2);
     ada.ubahakhir(data3);
     ada.ubahawal(dataupdatefirst);
+    ada.addMiddle(datatengah,2);
     // ada.removeFirst();
     // ada.removeLast();
     ada.printdouble();
