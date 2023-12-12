@@ -105,6 +105,32 @@ public:
             delete del;
         }
     }
+    void ubahakhir(string x[4])
+    {         
+       if(head == NULL)
+        {
+            cout << "double linked belum dibuat" << endl;
+        }else{ 
+        Supermarket *item = new Supermarket(); 
+        tail->namabarang = x[0];
+        tail->user=x[1];
+        tail->mail=x[2];
+        tail->pssword=x[3];
+        }
+    }
+    void ubahawal(string x[4])
+    {         
+       if(head == NULL)
+        {
+            cout << "double linked belum dibuat" << endl;
+        }else{ 
+        Supermarket *item = new Supermarket(); 
+        head->namabarang = x[0];
+        head->user=x[1];
+        head->mail=x[2];
+        head->pssword=x[3];
+        }
+    }
 };
 
 int main()
@@ -117,9 +143,13 @@ int main()
     ada.createdoublelinkedlist(data);
     ada.addlast(data1);
     string data2[4] = {"1","usersarimi","mie@gmail.com","12334"};
+    string data3[4] = {"4","ubahakhir","ubah@gmail.com","9879"};
+    string dataupdatefirst[4] = {"1","updatefirst","ubah@gmail.com","9879"};
     ada.addfirst(data2);
-    ada.removeFirst();
-    ada.removeLast();
+    ada.ubahakhir(data3);
+    ada.ubahawal(dataupdatefirst);
+    // ada.removeFirst();
+    // ada.removeLast();
     ada.printdouble();
 
     
