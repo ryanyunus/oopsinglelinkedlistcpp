@@ -68,36 +68,6 @@ public:
         }
        
     }
-     void removemiddle(int posisi)
-    {
-        if(kepala == NULL)
-        {
-            cout << "Buat Linked List dulu!!" <<endl;
-        }else
-        {
-            if(posisi==1)
-            {
-                cout << "Posisi satu bukan posisi tengah" <<endl;
-            }else
-            {
-                School *newnode = new School();
-              
-                
-                int iterasi=1;
-                cur = kepala;
-                while(iterasi<posisi-1)
-                {
-                    cur = cur->next;
-                    iterasi++;
-                }
-                del = cur->next;
-                cur->next = del->next;
-                delete del;
-                
-            }
-        }
-       
-    }
     void addlast(string y[3])
     {
         School *newnode = new School();
@@ -167,10 +137,8 @@ int main()
     objbaru.addlast(data1);
     // objbaru.removefirst();
     // objbaru.removelast();
-    // objbaru.printcircular();
-    objbaru.addmiddle(data3,3);
     objbaru.printcircular();
-    objbaru.removemiddle(2);
+    objbaru.addmiddle(data3,3);
     objbaru.printcircular();
 
     return 0;
