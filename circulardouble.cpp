@@ -13,19 +13,21 @@ public:
     School *buntut;
     School *cur;
     School *del;
+    School *afternode;
     Singlelinked(){
         kepala = nullptr;
         buntut = nullptr;
         // cur = nullptr;
     }
-    void createcircular(string y[3])
+    void createcirculardoublelink(string y[3])
     {
         kepala = new School;
         kepala->nama = y[0];
         kepala->nim = y[1];
         kepala->email = y[2];
+        kepala->prev = kepala;
+        kepala->next = kepala;
         buntut = kepala;
-        buntut->next = kepala;
     }
      void addfirst(string y[3])
     {
@@ -34,8 +36,30 @@ public:
         newnode->nim = y[1];
         newnode->email = y[2];
         newnode->next = kepala;
+        newnode->prev = buntut;
+        kepala->prev = newnode;
         buntut->next = newnode;
         kepala = newnode;
+    }
+    void delfirst()
+    {
+        School *newnode = new School();
+        del = kepala;
+        cur = kepala->next;
+        kepala = cur;
+        buntut->next = kepala;
+        kepala->prev = buntut;
+        delete del;
+    }
+    void dellast()
+    {
+        School *newnode = new School();
+        del = buntut;
+        buntut = buntut->prev;
+        buntut->next = kepala;
+        kepala->prev = buntut;
+        delete del;
+
     }
        void addmiddle(string y[3],int posisi)
     {
@@ -47,7 +71,11 @@ public:
             if(posisi==1)
             {
                 cout << "Posisi satu bukan posisi tengah" <<endl;
-            }else
+            }else if(posisi < 1)
+            {
+                cout << "Posisi di luar jangkauan" <<endl;
+            }
+            else
             {
                 School *newnode = new School();
                 newnode->nama = y[0];
@@ -61,8 +89,44 @@ public:
                     cur = cur->next;
                     iterasi++;
                 }
-                newnode->next = cur->next;
+                afternode = cur->next;
                 cur->next = newnode;
+                afternode->prev = newnode;
+                newnode->prev = cur;
+                newnode->next = afternode;
+               }
+        }
+       
+     }
+     void removemiddle(int posisi)
+    {
+        if(kepala == NULL)
+        {
+            cout << "Buat Linked List dulu!!" <<endl;
+        }else
+        {
+            if(posisi==1)
+            {
+                cout << "Posisi satu bukan posisi tengah" <<endl;
+            }else if(posisi < 1)
+            {
+                cout << "Posisi di luar jangkauan" <<endl;
+            }else
+            {
+                School *newnode = new School();   
+                int iterasi=1;
+                cur = kepala;
+                while(iterasi<posisi-1)
+                {
+                    cur = cur->next;
+                    iterasi++;
+                }
+                del = cur->next;
+                // cur->next = del->next;
+                afternode = del->next;
+                cur->next = afternode;
+                afternode->prev = cur;
+                delete del;
                 
             }
         }
@@ -74,29 +138,13 @@ public:
         newnode->nama = y[0];
         newnode->nim = y[1];
         newnode->email = y[2];
+        newnode->prev = buntut;
         newnode->next = kepala;
+        kepala->prev = newnode;
         buntut->next = newnode;
         buntut = newnode;
     }
-    void removefirst()
-    {
-        del = kepala;
-        kepala = kepala->next;
-        buntut->next = kepala;
-        delete del;
-    }
-     void removelast()
-    {
-        del = buntut;
-        cur = kepala;
-        while(cur->next!=buntut)
-        {
-            cur=cur->next;
-        }
-        buntut = cur;
-        buntut->next = kepala;
-        delete del;
-    }
+   
     void printcircular()
     {
         if (kepala == nullptr) {
@@ -132,14 +180,21 @@ int main()
     string data1[3] = {"riky","003","gmail"};
     string data2[3] = {"ryan","002","gmail"};
     string data3[3] = {"riko","002","gmail"};
-    objbaru.createcircular(data);
+    objbaru.createcirculardoublelink(data1);
     objbaru.addfirst(data2);
-    objbaru.addlast(data1);
+    // objbaru.printcircular();
+    objbaru.addlast(data3);
+    // objbaru.delfirst();
+    // objbaru.dellast();
+    // objbaru.printcircular();
     // objbaru.removefirst();
     // objbaru.removelast();
-    objbaru.printcircular();
+    // objbaru.printcircular();
     objbaru.addmiddle(data3,3);
+    objbaru.removemiddle(2);
     objbaru.printcircular();
+    // objbaru.removemiddle(2);
+    // objbaru.printcircular();
 
     return 0;
 }
